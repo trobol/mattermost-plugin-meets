@@ -1,8 +1,6 @@
 # Mattermost Meets Plugin 
 
 
-**Maintainer:** [@larkox](https://github.com/larkox)
-**Co-Maintainer:** [@mickmister](https://github.com/mickmister)
 
 Start and join voice calls, video calls and use screen sharing with your team members via Meets.
 
