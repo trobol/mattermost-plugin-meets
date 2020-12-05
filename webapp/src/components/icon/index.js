@@ -1,10 +1,10 @@
 // Copyright (c) 2017-present Mattermost, Inc. All Rights Reserved.
 // See License for license information.
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {getServerVersion} from 'mattermost-redux/selectors/entities/general';
-import {isMinimumServerVersion} from 'mattermost-redux/utils/helpers';
+import { getServerVersion } from 'mattermost-redux/selectors/entities/general';
+import { isMinimumServerVersion } from 'mattermost-redux/utils/helpers';
 
 import Icon from './icon.jsx';
 

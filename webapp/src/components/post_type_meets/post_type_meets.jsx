@@ -4,12 +4,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {makeStyleFromTheme} from 'mattermost-redux/utils/theme_utils';
+import { makeStyleFromTheme } from 'mattermost-redux/utils/theme_utils';
 
-import {Svgs} from '../../constants';
-import {formatDate} from '../../utils/date_utils';
+import { Svgs } from '../../constants';
+import { formatDate } from '../../utils/date_utils';
 
-export default class PostTypeZoom extends React.PureComponent {
+export default class PostTypeMeets extends React.PureComponent {
     static propTypes = {
 
         /*
@@ -93,7 +93,7 @@ export default class PostTypeZoom extends React.PureComponent {
                 >
                     <i
                         style={style.buttonIcon}
-                        dangerouslySetInnerHTML={{__html: Svgs.VIDEO_CAMERA_3}}
+                        dangerouslySetInnerHTML={{ __html: Svgs.VIDEO_CAMERA_3 }}
                     />
                     {'JOIN MEETING'}
                 </a>
@@ -148,7 +148,7 @@ export default class PostTypeZoom extends React.PureComponent {
                         {'Meeting Summary'}
                     </h2>
                     <span style={style.summaryItem}>{'Date: ' + start}</span>
-                    <br/>
+                    <br />
                     <span style={style.summaryItem}>{'Meeting Length: ' + length + ' minute(s)'}</span>
                 </div>
             );
@@ -181,7 +181,7 @@ export default class PostTypeZoom extends React.PureComponent {
                         >
                             <i
                                 style={style.buttonIcon}
-                                dangerouslySetInnerHTML={{__html: Svgs.VIDEO_CAMERA_3}}
+                                dangerouslySetInnerHTML={{ __html: Svgs.VIDEO_CAMERA_3 }}
                             />
                             {'JOIN EXISTING MEETING'}
                         </a>
@@ -190,7 +190,7 @@ export default class PostTypeZoom extends React.PureComponent {
             );
         }
 
-        let title = 'Zoom Meeting';
+        let title = 'Meets';
         if (props.meeting_topic) {
             title = props.meeting_topic;
         }

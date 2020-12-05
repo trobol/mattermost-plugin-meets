@@ -3,10 +3,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
-import {makeStyleFromTheme} from 'mattermost-redux/utils/theme_utils';
+import { FormattedMessage } from 'react-intl';
+import { makeStyleFromTheme } from 'mattermost-redux/utils/theme_utils';
 
-import {Svgs} from '../../constants';
+import { Svgs } from '../../constants';
 
 export default class Icon extends React.PureComponent {
     static propTypes = {
@@ -17,7 +17,7 @@ export default class Icon extends React.PureComponent {
 
         let icon = (ariaLabel) => (
             <span aria-label={ariaLabel}>
-                <i className='icon icon-brand-zoom'/>
+                <i className='icon icon-brand-zoom' />
             </span>
         );
         if (this.props.useSVG) {
@@ -25,7 +25,7 @@ export default class Icon extends React.PureComponent {
                 <span
                     aria-label={ariaLabel}
                     style={style.iconStyle}
-                    dangerouslySetInnerHTML={{__html: Svgs.VIDEO_CAMERA}}
+                    dangerouslySetInnerHTML={{ __html: Svgs.VIDEO_CAMERA }}
                 />
             );
         }
@@ -44,7 +44,7 @@ const getStyle = makeStyleFromTheme(() => {
     return {
         iconStyle: {
             position: 'relative',
-            top: '-1px',
+            top: '-2.5px',
         },
     };
 });
