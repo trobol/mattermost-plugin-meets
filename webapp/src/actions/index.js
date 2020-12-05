@@ -10,6 +10,7 @@ const BASE_URL = "http://g.co/meet/";
 export function startMeeting(channelId, force = false) {
     return async (dispatch, getState) => {
         const meetingURL = `${BASE_URL}${channelId}`;
+        Client.startMeeting(channelId, false, force);
         window.open(meetingURL);
 
         return { data: true };

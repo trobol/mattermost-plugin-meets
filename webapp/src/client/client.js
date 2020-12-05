@@ -1,10 +1,10 @@
 // Copyright (c) 2017-present Mattermost, Inc. All Rights Reserved.
 // See License for license information.
 
-import {Client4} from 'mattermost-redux/client';
-import {ClientError} from 'mattermost-redux/client/client4';
+import { Client4 } from 'mattermost-redux/client';
+import { ClientError } from 'mattermost-redux/client/client4';
 
-import {id} from '../manifest';
+import { id } from '../manifest';
 
 export default class Client {
     setServerRoute(url) {
@@ -12,7 +12,7 @@ export default class Client {
     }
 
     startMeeting = async (channelId, personal = true, topic = '', meetingId = 0, force = false) => {
-        const res = await doPost(`${this.url}/api/v1/meetings${force ? '?force=true' : ''}`, {channel_id: channelId, personal, topic, meeting_id: meetingId});
+        const res = await doPost(`${this.url}/join`, { channel_id: channelId });
         return res.meeting_url;
     }
 
