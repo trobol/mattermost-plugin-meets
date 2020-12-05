@@ -3,7 +3,7 @@
     "name": "Meets",
     "description": "Meets integration plugin for Mattermost 5.2+.",
     "icon_path": "assets/profile.svg",
-    "version": "1.4.1",
+    "version": "0.1",
     "min_server_version": "5.12.0",
     "server": {
         "executables": {
