@@ -5,16 +5,8 @@ package main
 
 import (
 	"reflect"
-	"strings"
 
 	"github.com/pkg/errors"
-
-	"github.com/mattermost/mattermost-plugin-zoom/server/zoom"
-)
-
-const (
-	zoomDefaultURL    = "https://zoom.us"
-	zoomDefaultAPIURL = "https://api.zoom.us/v2"
 )
 
 // configuration captures the plugin's external configuration as exposed in the Mattermost server
@@ -29,17 +21,6 @@ const (
 // If you add non-reference types to your configuration struct, be sure to rewrite Clone as a deep
 // copy appropriate for your types.
 type configuration struct {
-	ZoomURL           string
-	ZoomAPIURL        string
-	APIKey            string
-	APISecret         string
-	EnableOAuth       bool
-	AccountLevelApp   bool
-	OAuthClientID     string
-	OAuthClientSecret string
-	OAuthRedirectURL  string
-	EncryptionKey     string
-	WebhookSecret     string
 }
 
 // Clone shallow copies the configuration. Your implementation may require a deep copy if
@@ -51,35 +32,6 @@ func (c *configuration) Clone() *configuration {
 
 // IsValid checks if all needed fields are set.
 func (c *configuration) IsValid() error {
-	return nil
-	switch {
-	case !c.EnableOAuth:
-		switch {
-		case len(c.APIKey) == 0:
-			return errors.New("please configure APIKey")
-
-		case len(c.APISecret) == 0:
-			return errors.New("please configure APISecret")
-		}
-	case c.EnableOAuth:
-		switch {
-		case len(c.OAuthClientSecret) == 0:
-			return errors.New("please configure OAuthClientSecret")
-
-		case len(c.OAuthClientID) == 0:
-			return errors.New("please configure OAuthClientID")
-
-		case len(c.EncryptionKey) == 0:
-			return errors.New("please generate EncryptionKey from Zoom plugin settings")
-		}
-	default:
-		return errors.New("please select either OAuth or Password based authentication")
-	}
-
-	if len(c.WebhookSecret) == 0 {
-		return errors.New("please configure WebhookSecret")
-	}
-
 	return nil
 }
 
@@ -138,25 +90,6 @@ func (p *Plugin) OnConfigurationChange() error {
 	}
 
 	p.setConfiguration(configuration)
-	p.jwtClient = zoom.NewJWTClient(p.getZoomAPIURL(), configuration.APIKey, configuration.APISecret)
 
 	return nil
-}
-
-// getZoomURL gets the configured Zoom URL. Default URL is https://zoom.us
-func (p *Plugin) getZoomURL() string {
-	zoomURL := strings.TrimSpace(p.getConfiguration().ZoomURL)
-	if zoomURL == "" {
-		zoomURL = zoomDefaultURL
-	}
-	return zoomURL
-}
-
-// getZoomAPIURL gets the configured Zoom API URL. Default URL is https://api.zoom.us/v2.
-func (p *Plugin) getZoomAPIURL() string {
-	apiURL := strings.TrimSpace(p.getConfiguration().ZoomAPIURL)
-	if apiURL == "" {
-		apiURL = zoomDefaultAPIURL
-	}
-	return apiURL
 }

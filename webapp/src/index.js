@@ -8,7 +8,6 @@ import { getConfig } from 'mattermost-redux/selectors/entities/general';
 import { id as pluginId } from './manifest';
 
 import Icon from './components/icon';
-import PostTypeMeets from './components/post_type_meets';
 import { startMeeting } from './actions';
 import Client from './client';
 
@@ -22,7 +21,6 @@ class Plugin {
             },
             'Join Meeting',
         );
-        registry.registerPostTypeComponent('custom_meets', PostTypeMeets);
         Client.setServerRoute(getServerRoute(store.getState()));
     }
 }

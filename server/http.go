@@ -69,13 +69,9 @@ func (p *Plugin) postJoinMessage(user *model.User, meetingID int, channelID stri
 		Message:   fmt.Sprintf("%s joined the meeting", user.FirstName),
 	}
 
-	createdPost, appErr := p.API.CreatePost(post)
+	_, appErr := p.API.CreatePost(post)
 	if appErr != nil {
 		return appErr
-	}
-
-	if appErr = p.storeMeetingPostID(meetingID, createdPost.Id); appErr != nil {
-		p.API.LogDebug("failed to store post id", "err", appErr)
 	}
 
 	return nil

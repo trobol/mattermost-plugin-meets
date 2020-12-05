@@ -1,7 +1,7 @@
 {
-  "name": "zoom",
+  "name": "meets",
   "version": "1.0.7",
-  "description": "Zoom audio and video conferencing plugin for Mattermost",
+  "description": "Meets audio and video integration plugin for Mattermost",
   "author": "Mattermost",
   "license": "Apache-2.0",
   "main": "src/index.js",

@@ -17,7 +17,7 @@ export default class Icon extends React.PureComponent {
 
         let icon = (ariaLabel) => (
             <span aria-label={ariaLabel}>
-                <i className='icon icon-brand-zoom' />
+                <i className='icon icon-brand-meets' />
             </span>
         );
         if (this.props.useSVG) {
@@ -31,8 +31,8 @@ export default class Icon extends React.PureComponent {
         }
         return (
             <FormattedMessage
-                id='zoom.camera.ariaLabel'
-                defaultMessage='zoom camera icon'
+                id='meets.camera.ariaLabel'
+                defaultMessage='meets camera icon'
             >
                 {(ariaLabel) => icon(ariaLabel)}
             </FormattedMessage>

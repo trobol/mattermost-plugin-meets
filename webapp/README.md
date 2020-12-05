@@ -1,4 +1,4 @@
-# README for Zoom
+# README for Meets
 
 Add README information for the webapp portion of your plugin here.
 
