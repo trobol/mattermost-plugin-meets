@@ -17,14 +17,21 @@ export default class Icon extends React.PureComponent {
 
         let icon = (ariaLabel) => (
             <span aria-label={ariaLabel}>
-                <i className='icon icon-brand-meets' />
+                <i className='fa fa-video-camera' style={{
+                        position: 'relative',
+                        top: '-1px',
+                    }}
+                />
             </span>
         );
-        if (this.props.useSVG) {
+        if ( this.props.useSVG ) {
             icon = (ariaLabel) => (
                 <span
                     aria-label={ariaLabel}
-                    style={style.iconStyle}
+                    style={{
+                        position: 'relative',
+                        top: '-2.5px',
+                    }}
                     dangerouslySetInnerHTML={{ __html: Svgs.VIDEO_CAMERA }}
                 />
             );
@@ -44,7 +51,7 @@ const getStyle = makeStyleFromTheme(() => {
     return {
         iconStyle: {
             position: 'relative',
-            top: '-2.5px',
+            top: '-1px',
         },
     };
 });

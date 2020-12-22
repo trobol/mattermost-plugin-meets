@@ -4,7 +4,7 @@
 export default {
 	// source https://uxwing.com/google-meet-icon/
 	// TODO: attribution
-	VIDEO_CAMERA: `<svg version="1.1" width="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="1px" viewBox="0 0 122.88 101.11" style="vertical-align: middle;" xml:space="preserve"><style type="text/css"><![CDATA[
+	VIDEO_CAMERA: `<svg version="1.1" width="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 122.88 101.11" style="vertical-align: middle;" xml:space="preserve"><style type="text/css"><![CDATA[
 	.st0{fill:#188038;}
 	.st1{fill:#1967D2;}
 	.st2{fill:#EA4335;}

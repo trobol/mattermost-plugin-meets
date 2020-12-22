@@ -16,6 +16,22 @@ type joinMeetingMessage struct {
 	ChannelID string `json:"channel_id"`
 }
 
+const htmlRedirect = `
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title></title>
+</head>
+<body>
+<script>
+	history.pushState('', '', github.com);
+	window.location.replace("http://stackoverflow.com");
+</script>
+</body>
+</html>
+`
+
 func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
 	config := p.getConfiguration()
 	if err := config.IsValid(); err != nil {
@@ -26,7 +42,6 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 	switch path := r.URL.Path; path {
 	case "/join":
 		p.handleJoin(w, r)
-
 	default:
 		http.NotFound(w, r)
 	}
@@ -66,7 +81,7 @@ func (p *Plugin) postJoinMessage(user *model.User, meetingID int, channelID stri
 	post := &model.Post{
 		UserId:    p.botUserID,
 		ChannelId: channelID,
-		Message:   fmt.Sprintf("%s joined the meeting", user.FirstName),
+		Message:   fmt.Sprintf("%s joined the meeting", user.Username),
 	}
 
 	_, appErr := p.API.CreatePost(post)
