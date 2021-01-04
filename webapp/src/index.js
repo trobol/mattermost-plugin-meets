@@ -6,7 +6,8 @@ import React from 'react';
 import { Client4 } from 'mattermost-redux/client';
 import { getConfig } from 'mattermost-redux/selectors/entities/general';
 import { getCurrentTeam } from 'mattermost-redux/selectors/entities/teams';
-import { getUsersInVisibleDMs } from 'mattermost-redux/selectors/entities/users';
+import { getUsers } from 'mattermost-redux/selectors/entities/common'
+import { getUsersInVisibleDMs, makeGetProfilesInChannel } from 'mattermost-redux/selectors/entities/users';
 import { General } from 'mattermost-redux/constants'
 
 import { id as pluginId } from './manifest';
@@ -22,16 +23,25 @@ class Plugin {
             (channel) => {
                 const meeting_url = 'http://g.co/meet/';
                 const state = store.getState();
-                const team = getCurrentTeam(state);
-                
+
                 let meeting_name = '';
-                if (channel.type == General.DM_CHANNEL) {
-                    const [profA, profB] = getUsersInVisibleDMs(state);
-                    meeting_name = `${profA.username}-${profB.username}`;
+                if (channel.type == General.DM_CHANNEL || channel.type == General.GM_CHANNEL) {
+
+                    const usernames = Object.values(getUsers(state)).map(u => u.username);
+                    usernames.sort();
+                    meeting_name = 'dm';
+                    for (let u of usernames) {
+                        meeting_name += '-' + u;
+                    }
+
                 } else {
-                    meeting_name = `${team.display_name}-${channel.display_name}`.replace(/ /g, '_');
+
+                    const team = getCurrentTeam(state);
+                    meeting_name =`${team.display_name}-${channel.display_name}`;
                 }
-               
+
+                meeting_name = sanitizeMeetName(meeting_name);
+
                 const url = meeting_url+meeting_name;
                 console.log(meeting_name);
                 window.open(url);
@@ -62,9 +72,12 @@ class Plugin {
     }
 }
 
+function sanitizeMeetName(name) {
+    name = name.replace(/ /g, '_');
+    return name.replace(/[^a-zA-Z0-9-_]/g, ''); //remove invalid chars
+} 
 
-
-export const doPost = async (url, body, headers = {}) => {
+const doPost = async (url, body, headers = {}) => {
     const options = {
         method: 'post',
         body: JSON.stringify(body),
