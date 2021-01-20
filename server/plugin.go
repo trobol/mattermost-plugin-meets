@@ -18,11 +18,6 @@ const (
 	botUserName    = "meets"
 	botDisplayName = "Meets"
 	botDescription = "Created by the Meets plugin."
-
-	trueString  = "true"
-	falseString = "false"
-
-	meetsProviderName = "Meets"
 )
 
 type Plugin struct {

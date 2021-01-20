@@ -6,33 +6,35 @@ import React from 'react';
 import { Client4 } from 'mattermost-redux/client';
 import { getConfig } from 'mattermost-redux/selectors/entities/general';
 import { getCurrentTeam } from 'mattermost-redux/selectors/entities/teams';
-import { getUsers } from 'mattermost-redux/selectors/entities/common'
-import { getUsersInVisibleDMs, makeGetProfilesInChannel } from 'mattermost-redux/selectors/entities/users';
+import { getUser,  getCurrentUser, makeGetProfilesInChannel } from 'mattermost-redux/selectors/entities/users';
 import { General } from 'mattermost-redux/constants'
 
 import { id as pluginId } from './manifest';
 
 import Icon from './components/icon';
 
-
 class Plugin {
     // eslint-disable-next-line no-unused-vars
     initialize(registry, store) {
+        let state = store.getState();
+        this.setServerRoute(state);
         registry.registerChannelHeaderButtonAction(
             <Icon/>,
             (channel) => {
                 const meeting_url = 'http://g.co/meet/';
                 const state = store.getState();
-
+                const doGetProfilesInChannel = makeGetProfilesInChannel();
+                
                 let meeting_name = '';
                 if (channel.type == General.DM_CHANNEL || channel.type == General.GM_CHANNEL) {
+                    
+                    const users = channel.teammate_id ?
+                        [getUser(state, channel.teammate_id), getCurrentUser(state)]
+                        : doGetProfilesInChannel(state, channel.id, false);
 
-                    const usernames = Object.values(getUsers(state)).map(u => u.username);
+                    const usernames = Object.values(users).map(u => u.username);
                     usernames.sort();
-                    meeting_name = 'dm';
-                    for (let u of usernames) {
-                        meeting_name += '-' + u;
-                    }
+                    meeting_name = 'dm_' + usernames.join('_');
 
                 } else {
 
@@ -51,8 +53,7 @@ class Plugin {
             },
             'Join Meeting',
         );
-        let state = store.getState();
-        this.setServerRoute(state);
+        
       
     }
 
@@ -71,6 +72,7 @@ class Plugin {
         this.url = basePath + '/plugins/' + pluginId;
     }
 }
+
 
 function sanitizeMeetName(name) {
     name = name.replace(/ /g, '_');

@@ -16,22 +16,6 @@ type joinMeetingMessage struct {
 	ChannelID string `json:"channel_id"`
 }
 
-const htmlRedirect = `
-<!doctype html>
-<html lang=en>
-<head>
-<meta charset=utf-8>
-<title></title>
-</head>
-<body>
-<script>
-	history.pushState('', '', github.com);
-	window.location.replace("http://stackoverflow.com");
-</script>
-</body>
-</html>
-`
-
 func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
 	config := p.getConfiguration()
 	if err := config.IsValid(); err != nil {
@@ -65,7 +49,6 @@ func (p *Plugin) handleJoin(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, appErr.Error(), appErr.StatusCode)
 		return
 	}
-
 	if _, appErr = p.API.GetChannelMember(req.ChannelID, userID); appErr != nil {
 		http.Error(w, "Forbidden", http.StatusForbidden)
 		return
